@@ -21,6 +21,13 @@ class Patients(models.Model):
         today = date.today()
         age = today.year - self.patient_dob.year - ((today.month, today.day) < (self.patient_dob.month, self.patient_dob.day))
         return age
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(patient_status__in=['Pending', 'Cancelled', 'Completed']),
+                name='check_patient_status'
+            )
+        ]
     
 class Patient_Addresses(models.Model):
     address_id = models.AutoField(primary_key=True)
