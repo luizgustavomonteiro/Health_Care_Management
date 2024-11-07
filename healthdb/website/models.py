@@ -12,6 +12,7 @@ class Patients(models.Model):
     patient_dob = models.DateField()
     patient_status = models.CharField(max_length=20)
 
+
     def __str__(self):
         return f"{self.patient_id} - {self.patient_fname} - {self.patient_lname}"
     

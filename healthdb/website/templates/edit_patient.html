@@ -1,0 +1,16 @@
+<form method="POST">
+    {% csrf_token %}
+    {{ patient_form.as_p }}
+    {{ address_formset.management_form }}
+    {{ mobile_formset.management_form }}
+    
+    {% for form in address_formset %}
+        {{ form.as_p }}
+    {% endfor %}
+    
+    {% for form in mobile_formset %}
+        {{ form.as_p }}
+    {% endfor %}
+    
+    <button type="submit">Save</button>
+</form>
