@@ -24,7 +24,7 @@ class Patients(models.Model):
     class Meta:
         constraints = [
             models.CheckConstraint(
-                check=models.Q(patient_status__in=['Pending', 'Cancelled', 'Completed']),
+                check=models.Q(patient_status__in=['Pending', 'Canceled', 'Completed']),
                 name='check_patient_status'
             )
         ]
@@ -32,11 +32,11 @@ class Patients(models.Model):
 class Patient_Addresses(models.Model):
     address_id = models.AutoField(primary_key=True)
     patient_id = models.ForeignKey(Patients, on_delete=models.CASCADE)
-    patient_zipcode = models.CharField(max_length=10, blank=True, null=True)  # Optional zipcode
-    patient_state = models.CharField(max_length=20, blank=True, null=True)  # Optional state
-    patient_city = models.CharField(max_length=20, blank=True, null=True)  # Optional city
-    patient_street = models.CharField(max_length=50, blank=True, null=True)  # Optional street
-    patient_number_add = models.CharField(max_length=8, blank=True, null=True)  # Optional address number
+    patient_zipcode = models.CharField(max_length=50, blank=True, null=True)  # Optional zipcode
+    patient_state = models.CharField(max_length=50, blank=True, null=True)  # Optional state
+    patient_city = models.CharField(max_length=50, blank=True, null=True)  # Optional city
+    patient_street = models.CharField(max_length=100, blank=True, null=True)  # Optional street
+    patient_number_add = models.CharField(max_length=50, blank=True, null=True)  # Optional address number
 
     def __str__(self):
         return f"{self.patient_id} - {self.patient_street}, {self.patient_city}, {self.patient_state}, {self.patient_zipcode}"
@@ -44,7 +44,7 @@ class Patient_Addresses(models.Model):
     
 class Patients_mobile(models.Model):
     patient_id = models.ForeignKey(Patients, on_delete=models.CASCADE)
-    patient_mobile = models.CharField(max_length=10, blank=True, null = True)
+    patient_mobile = models.CharField(max_length=30, blank=True, null = True)
 
     def __str__(self):
         return f"{self.patient_id} - {self.patient_mobile}"
@@ -64,7 +64,7 @@ class Doctors(models.Model):
 
 class Doctors_mobile(models.Model):
     doctor_id = models.ForeignKey(Doctors, on_delete=models.CASCADE)
-    doctors_mobile = models.CharField(max_length=10)
+    doctors_mobile = models.CharField(max_length=30)
 
     def __str__(self):
         return f"{self.doctor_id} - {self.doctors_mobile}"
@@ -85,7 +85,7 @@ class Patient_Historical(models.Model):
     patient_id = models.ForeignKey(Patients, on_delete=models.CASCADE)
     historical_date = models.DateField()  # Important for tracking when the record was created
     historical_describe = models.CharField(max_length=1000)
-    historical_note = models.CharField(max_length=200)
+    historical_note = models.CharField(max_length=300)
 
     def __str__(self):
         return f"{self.historical_id} - {self.patient_id} - {self.historical_date}"
@@ -93,8 +93,8 @@ class Patient_Historical(models.Model):
 
 class Treatments(models.Model):
     treatment_id = models.AutoField(primary_key=True)
-    treatment_name = models.CharField(max_length=50)
-    treatment_description = models.CharField(max_length=100)
+    treatment_name = models.CharField(max_length=100)
+    treatment_description = models.CharField(max_length=1000)
     patient_id = models.ForeignKey(Patients, on_delete=models.CASCADE)
     doctor_id = models.ForeignKey(Doctors, on_delete=models.CASCADE)
     appointment_id = models.ForeignKey(Appointments, on_delete=models.CASCADE)
@@ -108,8 +108,8 @@ class Bills(models.Model):
     patient_id = models.ForeignKey(Patients, on_delete=models.CASCADE)
     bill_init_date = models.DateField()
     bill_end_date = models.DateField(blank=True, null=True)
-    bill_title = models.CharField(max_length=20)
-    bill_description = models.CharField(max_length=30)
+    bill_title = models.CharField(max_length=50)
+    bill_description = models.CharField(max_length=50)
 
     def __str__(self):
         return f"{self.bill_id} - {self.bill_title} - {self.patient_id}"
