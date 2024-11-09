@@ -39,14 +39,14 @@
                 <td>
                 {% if doctor.doctor_availability == 'Available' %}
                 <span class="badge-success">Available</span>
-                {% elif doctor.doctor_status == 'Unavailable' %}
+                {% elif doctor.doctor_availability == 'Unavailable' %}
                 <span class="badge-danger">Unavailable</span>
                 {% else %}
                 <span class="badge-secondary">Unknown</span>
                 {% endif %}
             </td>
             <td style="display: flex; justify-content: space-around;">
-                <a class="btn btn-success btn-sm" style = "padding: 6px 40px; font-size: 15px;">Edit</a>
+                <a href="{% url 'doctor_edit' doctor.doctor_id %}" class=" btn-success btn-sm" style = "padding: 6px 40px; font-size: 15px;">Edit</a>
                 <a class="btn btn-danger btn-sm" style = "padding: 6px 40px; font-size: 15px;">Delete</a>
             </td>
             </tr>
