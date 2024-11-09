@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Patients
+from .models import Patients, Doctors
 from .forms import PatientForm, PatientAddressForm, PatientMobileForm
 from django.forms import inlineformset_factory
 from .models import Patient_Addresses, Patients_mobile
@@ -10,6 +10,10 @@ from .models import Patient_Addresses, Patients_mobile
 
 def home(request):
     return render(request, 'home.html', {})
+
+def doctor_list(request):
+    doctors = Doctors.objects.all()
+    return render(request, 'doctor_list.html', {'doctors': doctors})
 
 def patient_list(request):
     patients = Patients.objects.all()
