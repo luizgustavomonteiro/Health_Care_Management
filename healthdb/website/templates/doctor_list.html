@@ -26,7 +26,7 @@
                 <th>Doctor Id</th>
                 <th>Doctor Name</th>
                 <th>Doctor Specialization</th>
-                <th>Doctor Status</th>
+                <th>Availibility</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -37,7 +37,7 @@
                 <td>{{doctor.doctor_fname}}</td>
                 <td>{{doctor.doctor_specialization}}</td>
                 <td>
-                {% if doctor.doctor_status == 'Available' %}
+                {% if doctor.doctor_availability == 'Available' %}
                 <span class="badge-success">Available</span>
                 {% elif doctor.doctor_status == 'Unavailable' %}
                 <span class="badge-danger">Unavailable</span>

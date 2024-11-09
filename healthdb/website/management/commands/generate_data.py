@@ -45,7 +45,7 @@ class Command(BaseCommand):
 
         # Generate Doctors
         doctor_specializations = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "General"]
-        doctor_status = ["Active", "Inactive"]
+        doctor_availability = ["Available", "Unavailable"]
 
         for _ in range(10):  # Adjust number of doctors as needed
             doctor = Doctors.objects.create(
@@ -53,7 +53,7 @@ class Command(BaseCommand):
                 doctor_mname=fake.first_name(),
                 doctor_lname=fake.last_name(),
                 doctor_specialization=random.choice(doctor_specializations),
-                doctor_status=random.choice(doctor_status)
+                doctor_availability=random.choice(doctor_availability)
             )
             self.stdout.write(self.style.SUCCESS(f'Doctor created: {doctor}'))
 

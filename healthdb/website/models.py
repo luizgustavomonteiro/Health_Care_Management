@@ -56,10 +56,18 @@ class Doctors(models.Model):
     doctor_mname = models.CharField(max_length=50)
     doctor_lname = models.CharField(max_length=50)
     doctor_specialization = models.CharField(max_length=100)
-    doctor_status = models.CharField(max_length=20)
+    doctor_availability = models.CharField(max_length=20)
 
     def __str__(self):
         return f"{self.doctor_id} - {self.doctor_fname} - {self.doctor_lname} - {self.doctor_specialization}"
+    
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(doctor_availability__in=['Available', 'Unavailable']),
+                name ='check_doctor_availability'
+                )   
+        ]
     
 
 class Doctors_mobile(models.Model):
