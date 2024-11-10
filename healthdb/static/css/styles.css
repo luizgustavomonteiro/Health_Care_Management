@@ -20,6 +20,18 @@ body {
   color: #fff;
 }
 
+.custom-navbar{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.nav-item
+{
+    flex: 1;
+    text-align: center;
+}
+
 /* styles.css */
 .my-container {
   max-width: 1250px;
