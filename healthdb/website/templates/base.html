@@ -33,19 +33,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav d-flex justify-content-between w-100">
             <li class="nav-item">
-              <a class="nav-link" href="#">Dashboard</a>
+              <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Patients</a>
+              <a class="nav-link" href="{% url 'patient_list' %}">Patients</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Doctors</a>
+              <a class="nav-link" href="{% url 'doctor_list' %}">Doctors</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Appointments</a>
+              <a class="nav-link" href="{% url 'appointment_list' %}">Appointments</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Treatments</a>
+              <a class="nav-link" href="{% url 'treatment_list' %}">Treatments</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Payments</a>

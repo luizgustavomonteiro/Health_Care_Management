@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Patients, Doctors, Doctors_mobile
+from .models import Patients, Doctors, Doctors_mobile, Appointments
 from .forms import PatientForm, PatientAddressForm, PatientMobileForm, DoctorMobileForm, DoctorForm
 from django.forms import inlineformset_factory
 from .models import Patient_Addresses, Patients_mobile
@@ -7,9 +7,14 @@ from .models import Patient_Addresses, Patients_mobile
 
 # Create your views here.
 
+def treatment_list(request):
+    return render(request, 'treatment_list.html')
+
+def appointment_list(request):
+    return render(request, 'appointment_list.html', {})
 
 def home(request):
-    return render(request, 'home.html', {})
+    return render(request, 'dashboard.html', {})
 
 def doctor_list(request):
     doctors = Doctors.objects.all()
