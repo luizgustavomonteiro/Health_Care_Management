@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Patients, Doctors, Doctors_mobile, Appointments
 from .forms import PatientForm, PatientAddressForm, PatientMobileForm, DoctorMobileForm, DoctorForm
@@ -46,8 +47,24 @@ def doctor_edit(request, id):
     
 
 def patient_list(request):
-    patients = Patients.objects.all()
-    return render(request, 'patient_list.html', {'patients': patients})
+    # Recupera o valor de 'entries' da query string, se não existir, usa 10 como padrão
+    entries_per_page = int(request.GET.get('entries', 10))
+    
+    patients = Patients.objects.all()  # Carregar todos os pacientes ou aplicar filtros conforme necessário
+    
+    # Cria o paginator com base no número de entradas por página
+    paginator = Paginator(patients, entries_per_page)
+    
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'page_obj': page_obj,
+        'entries_per_page': entries_per_page  # Passa o valor para o template
+    }
+    
+    return render(request, 'patient_list.html', context)
+
 
 def patient_edit(request, id):
     patient = get_object_or_404(Patients, patient_id=id)

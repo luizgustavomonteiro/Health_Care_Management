@@ -1,20 +1,21 @@
 <!--  -->
-
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block content %}
 <div class="container mt-8">
     <h2 class="mb-4 text-center" style="font-size: 2.5em;">PATIENTS</h2>
     <div class="d-flex justify-content-between mb-3">
         <div>
-            <label>Show 
-                <select class="custom-select custom-select-sm">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
+            <label for="entries">Show </label>
+                <select id="entries" name="entries" class="custom-select custom-select-sm" onchange="updateEntries()">
+                    <option value="10" {% if entries_per_page == 10 %}selected{% endif %}>10</option>
+                    <option value="25" {% if entries_per_page == 25 %}selected{% endif %}>25</option>
+                    <option value="50" {% if entries_per_page == 50 %}selected{% endif %}>50</option>
+                    <option value="100" {% if entries_per_page == 100 %}selected{% endif %}>100</option>
                 </select> entries
-            </label>
+            
         </div>
         <div>
             <input type="text" class="form-control form-control-sm" placeholder="Search">
@@ -32,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for patient in patients %}
+            {% for patient in page_obj %}
             <tr>
                 <td>{{ patient.patient_id }}</td>
                 <td>{{ patient.patient_fname }}</td>
@@ -57,5 +58,26 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <!--Pagination controls-->
+
+    <div class="d-flex justify-content-center mt-4">
+        {% if page_obj.has_previous %}
+            <a href="?page=1&entries={{ entries_per_page }}" class="btn btn-light">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}&entries={{ entries_per_page }}" class="btn btn-light">Previous</a>
+        {% endif %}
+
+        <span class="mx-2 align-self-center">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&entries={{ entries_per_page }}" class="btn btn-light">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}&entries={{ entries_per_page }}" class="btn btn-light">Last</a>
+        {% endif %}
+    </div>
 </div>
+
+<!-- Include the external JavaScript file -->
+<script src="{% static 'js/entries.js' %}"></script>
+
+
 {% endblock %}
